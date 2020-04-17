@@ -1,0 +1,14 @@
+﻿  AbstrSynTree.cpp
+  FileSystem.cpp
+  GrammarHelpers.cpp
+  Logger.cpp
+  ActionsAndRules.cpp
+  ConfigureParser.cpp
+  Parser.cpp
+  ScopeStack.cpp
+  Semi.cpp
+  Toker.cpp
+  Utilities.cpp
+  Executive.cpp
+  Generating Code...
+  Executive.vcxproj -> D:\CSE687\Project4\code\Project4-hlz\Project4\Debug\Executive.lib

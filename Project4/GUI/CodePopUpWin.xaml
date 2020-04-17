@@ -1,0 +1,23 @@
+﻿<Window x:Class="GUI.CodePopUpWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="CodePopUpWin" Height="450" Width="800">
+    <Grid>
+        <TextBox Grid.Row="0" Name="nameLabel" TextAlignment="Center" Padding="3"  HorizontalAlignment="Left" Height="30" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="772"/>
+        <WebBrowser x:Name="myWebBrowser" Margin="10,45,11.333,9.667" ObjectForScripting="true"  />
+
+        <!--<FlowDocumentScrollViewer BorderThickness="1" BorderBrush="Black" Margin="0,45,10,10" >
+            <FlowDocument Name="codeView" FontFamily="Consolas" FontSize="12"  >
+                <Paragraph Name="main">
+                    this is test
+                    <LineBreak/>
+                    with secon line
+                </Paragraph>
+            </FlowDocument>
+        </FlowDocumentScrollViewer>-->
+    </Grid>
+</Window>

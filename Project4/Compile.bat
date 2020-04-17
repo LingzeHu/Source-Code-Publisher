@@ -1,0 +1,1 @@
+devenv Pr4.sln /ReBuild debug

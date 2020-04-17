@@ -1,0 +1,94 @@
+<!Doctype html> <html>   <head>     <style>       body {         padding:15px 40px;         font-family: Consolas;         font-size: 1.25em;         font-weight: normal;       }       .absolute{ 	position:fixed; 	top:0; 	right:0;		}     </style> <script> var hiddenF = false; var hiddenC = false; var hiddenc = false;       function toggleVisibility(classname) {         var elems = document.getElementsByClassName(classname); 	var i; 		if(classname === "function"){ 		hiddenF = !hiddenF; 		for (i = 0; i < elems.length; i++) { 		  elems[i].hidden = hiddenF; 		} 			} 	else if(classname === "class"){ 		hiddenC = !hiddenC; 		for (i = 0; i < elems.length; i++) { 		  elems[i].hidden = hiddenC; 		} 	} 	else if(classname === "Comment"){ 		hiddenc = !hiddenc; 		for (i = 0; i < elems.length; i++) { 		  elems[i].hidden = hiddenc; 		} 	}       }  </script>   </head>   <body>  <h3>Parser.h</h3><span class = "absolute"><label><input type = "checkbox" id = "hideF" value = "hidefuncs" checked = "true" onclick = "toggleVisibility('function')">Functions</label><br><label><input type = "checkbox" id = "hideC" value = "hideclass" checked = "true" onclick = "toggleVisibility('class')">Classes</label><br><label><input type = "checkbox" id = "hidec" value = "hidecomms" checked = "true" onclick = "toggleVisibility('Comment')">Comments</label><br></span><h4>Dependency Link : None</h4><pre>#ifndef PARSER_H
+#define PARSER_H
+<div class = "Comment"> /////////////////////////////////////////////////////////////////////</div><div class = "Comment"> //  Parser.h - Analyzes C++ and C# language constructs             //</div><div class = "Comment"> //  ver 1.0                                                        //</div><div class = "Comment"> //  Language:      Visual C++, Visual Studio 2015                  //</div><div class = "Comment"> //  Platform:      Dell XPS 8920, Windows 10                       //</div><div class = "Comment"> //  Application:   Prototype for CSE687 - OOD Projects             //</div><div class = "Comment"> //  Author:        Jim Fawcett, CST 4-187, Syracuse University     //</div><div class = "Comment"> //                 (315) 443-3948, jfawcett@twcny.rr.com           //</div><div class = "Comment"> /////////////////////////////////////////////////////////////////////</div><div class = "Comment"> /*
+  Module Operations:
+  ==================
+  This module defines a Parser class.  Its instances collect
+  semi-expressions from one or more files for analysis.
+  Analysis consists of applying a set of rules to the semi-expression,
+  and for each rule that matches, invoking a set of one or more actions.
+
+  Build Process:
+  ==============
+  Required files
+	- Parser.h, Parser.cpp,
+	- ITokenCollection.h,
+	- Semi.h, Semi.cpp,
+	- toker.h, toker.cpp,
+	- ActionsAndRules.h, ActionsAndRules.cpp,
+	- GrammarHelpers.h, GrammarHelpers.cpp,
+	- AbstrSynTree.h, AbstrSynTree.cpp,
+	- ScopeStack.h, ScopeStack.cpp
+	- ConfigureParser.h, ConfigureParser.cpp,
+	- FileSystem.h, FileSystem.cpp,
+	- Logger.h, Logger.cpp,
+	- Utilities.h, Utilities.cpp
+
+  Maintenance History:
+  ===================
+  ver 1.0 : 11 Feb 2019
+  - first release
+  - This is a modification of the parser used in CodeAnalyzer.
+  - The most important change is replacing its tokenizer with a
+	State Pattern based design
+
+*/ </div>
+
+#include &ltstring&gt
+#include &ltiostream&gt
+#include &ltvector&gt
+#include "../SemiExpression/ITokenCollection.h"
+
+namespace CodeAnalysis
+{
+	<div class = "Comment"> ///////////////////////////////////////////////////////////////</div>	<div class = "Comment"> // abstract base class for parsing actions</div>	<div class = "Comment"> //   - when a rule succeeds, it invokes any registered action</div>
+	class Parser;
+
+	class IBuilder
+	<div class = "class"> {
+	public:
+		virtual ~IBuilder() <div class = "function"> {}</div>
+		virtual Parser* Build() = 0;
+	};</div>
+
+	<div class = "Comment"> ///////////////////////////////////////////////////////////////</div>	<div class = "Comment"> // abstract base class for parsing actions</div>	<div class = "Comment"> //   - when a rule succeeds, it invokes any registered action</div>
+	class IAction
+	<div class = "class"> {
+	public:
+		virtual ~IAction() <div class = "function"> {}</div>
+		virtual void doAction(const Lexer::ITokenCollection* pTc) = 0;
+	};</div>
+
+	<div class = "Comment"> ///////////////////////////////////////////////////////////////</div>	<div class = "Comment"> // abstract base class for parser language construct detections</div>	<div class = "Comment"> //   - rules are registered with the parser for use</div>
+	class IRule
+	<div class = "class"> {
+	public:
+		static const bool Continue = true;
+		static const bool Stop = false;
+		virtual ~IRule() <div class = "function"> {}</div>
+		void addAction(IAction* pAction);
+		void doActions(const Lexer::ITokenCollection* pTc);
+		virtual bool doTest(const Lexer::ITokenCollection* pTc) = 0;
+	protected:
+		std::vector&ltIAction*&gt actions;
+	};</div>
+
+	class Parser
+	<div class = "class"> {
+	public:
+		Parser(Lexer::ITokenCollection* pTokCollection);
+		~Parser();
+		void addRule(IRule* pRule);
+		bool parse();
+		bool next();
+	private:
+		Lexer::ITokenCollection* pTokColl;
+		std::vector&ltIRule*&gt rules;
+	};</div>
+
+	inline Parser::Parser(Lexer::ITokenCollection* pTokCollection) : pTokColl(pTokCollection) <div class = "function"> {}</div>
+
+	inline Parser::~Parser() <div class = "function"> {}</div>
+}
+#endif
+</pre> </body> </html> 
